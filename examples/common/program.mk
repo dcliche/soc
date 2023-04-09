@@ -9,7 +9,7 @@ AS = ${RISCV_TOOLCHAIN_PATH}${RISCV_TOOLCHAIN_PREFIX}as
 OBJCOPY = ${RISCV_TOOLCHAIN_PATH}${RISCV_TOOLCHAIN_PREFIX}objcopy
 OBJDUMP = ${RISCV_TOOLCHAIN_PATH}${RISCV_TOOLCHAIN_PREFIX}objdump
 CC = ${RISCV_TOOLCHAIN_PATH}${RISCV_TOOLCHAIN_PREFIX}gcc
-RISCV_CC_OPT ?= -march=rv32im -mabi=ilp32
+RISCV_CC_OPT ?= -march=rv32i -mabi=ilp32
 
 PROGRAM_SOURCE = ../common/start.S ../common/fs.c ../common/syscalls.c ../../lib/io.c ../../lib/sd_card.c program.c
 SERIAL ?= /dev/tty.usbserial-ibNy7k1v1

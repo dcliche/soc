@@ -376,7 +376,7 @@ void main(void)
     test_audio_sample(g_sin_data, sizeof(g_sin_data), 1000);
 
     for (;;) {
-        wait_vsync();
+        //wait_vsync();
 
         uint16_t tv = xm_getw(TIMER);
         char s[32];

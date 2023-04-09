@@ -491,7 +491,7 @@ module xgsoc #(
                         timer_irq <= 1'b1;
                         timer_wait_irq_handling <= 1'b1;
                     end else begin
-                        $display("Timer interrupt lost");
+                        //$display("Timer interrupt lost");
                     end
                 end
                 timer_value <= FREQ_HZ / TIMER_FREQ_HZ - 1;
@@ -520,7 +520,7 @@ module xgsoc #(
                     xosera_irq <= 1'b1;
                     xosera_wait_irq_handling <= 1'b1;
                 end else begin
-                    $display("Xosera interrupt lost");
+                    //$display("Xosera interrupt lost");
                 end
             end
         end
@@ -536,7 +536,7 @@ module xgsoc #(
 `endif
     timer_irq};
 
-    processor #(
+    processor2 #(
         .IRQ_VEC_ADDR(32'h10000010)   // IRQ vector in RAM
     ) cpu(
         .clk(clk),
