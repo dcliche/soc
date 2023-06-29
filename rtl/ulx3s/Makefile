@@ -11,7 +11,13 @@ DEVICE := 85k
 PACKAGE := CABGA381
 
 PIN_DEF := ulx3s.lpf
-SRC_CORE := ../../external/xglib/rtl/processor2.sv \
+SRC_CORE := ../../external/xglib/rtl/processor.sv \
+		../../external/xglib/rtl/alu.sv \
+		../../external/xglib/rtl/decoder.sv \
+		../../external/xglib/rtl/register_file.sv \
+		../../external/xglib/rtl/multiplier.v \
+		../../external/xglib/rtl/divider.v \
+		../../external/xglib/rtl/processor2.sv \
 		../../external/xglib/rtl/bus_arbiter.sv \
 		../../external/xglib/rtl/rv32/rv32.sv \
 		../../external/xglib/rtl/sdram_ctrl.v \

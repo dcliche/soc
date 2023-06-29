@@ -536,7 +536,11 @@ module xgsoc #(
 `endif
     timer_irq};
 
+`ifdef PROCESSOR_PIPELINED
     processor2 #(
+`else
+    processor #(
+`endif
         .IRQ_VEC_ADDR(32'h10000010)   // IRQ vector in RAM
     ) cpu(
         .clk(clk),
