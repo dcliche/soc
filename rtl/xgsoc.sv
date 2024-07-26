@@ -46,6 +46,7 @@
             Read:
                 bit 0: miso
     0x30000000 - 0x33FFFFFF: VGA (128kB)
+    0x40000000 - 0x40000001: OPL
 */
 
 `ifdef SDRAM
@@ -57,6 +58,10 @@
 `define AUDIO
 `elsif VGA
 `define VIDEO
+`endif
+
+`ifdef OPL
+`define AUDIO
 `endif
 
 module xgsoc #(
@@ -148,6 +153,9 @@ module xgsoc #(
 `ifdef VGA
     logic [31:0] vga_data_out;
 `endif // VGA
+`ifdef OPL
+    logic [7:0]  opl_data_out;
+`endif // OPL
     logic [3:0]  wr_mask;
     logic        rom_ack, ram_ack, device_ack;
 `ifdef VGA
@@ -453,6 +461,10 @@ module xgsoc #(
             if (sel) begin
                 if ((addr[31:28] == 4'h2) && (addr[31:8] != 24'h200030) && (addr[31:8] != 24'h200031))
                     device_ack <= 1'b1;
+`ifdef OPL
+                if ((addr[31:28] == 4'h4))
+                    device_ack <= 1'b1;
+`endif
             end
         end
     end
@@ -571,6 +583,10 @@ module xgsoc #(
             4'h3:
                 mem_data_out = vga_data_out;
 `endif // VGA
+`ifdef OPL
+            4'h4:
+                mem_data_out = opl_data_out;
+`endif // OPL
             default:
                 mem_data_out = rom_data_out;
         endcase
@@ -594,6 +610,40 @@ module xgsoc #(
         .vga_b_o(vga_b_o),
         .vga_de_o(vga_de_o)
     );
+`endif
+
+`ifdef OPL
+    logic signed [15:0] opl_snd_s;
+    logic        [15:0] opl_snd;
+    logic        dac_pulse;
+    assign audio_l_o = dac_pulse;
+    assign audio_r_o = dac_pulse;
+    assign opl_snd = 16'(17'(opl_snd_s) + 17'd32768);
+
+    dac #(
+        .WIDTH(16)
+    ) dac(
+        .rst_n(!reset_i),
+        .clk(clk),
+        .value(opl_snd),
+        .pulse(dac_pulse)
+    );
+
+    jtopl2 jtopl2(
+        .rst(reset_i),
+        .clk(clk),
+        .cen(1'b1),
+        .din(mem_data_in[7:0]),
+        .addr(addr[2]),
+        .cs_n(!(sel && (addr[31:28] == 4'h4))),
+        .wr_n(!(!device_ack && mem_we)),
+        .dout(opl_data_out),
+        .irq_n(),
+        // combined output
+        .snd(opl_snd_s),
+        .sample()
+    );
+
 `endif
 
 `ifdef XGA    

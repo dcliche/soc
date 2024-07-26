@@ -20,6 +20,38 @@ SRC_CORE := ../../external/xglib/rtl/riscv/processor.sv \
 		../../external/xglib/rtl/sdram_ctrl.v \
 		../../external/xglib/rtl/cache_ctrl.v \
 		../../external/xglib/rtl/display_timings.sv \
+		../../external/jtopl/hdl/jtopl_acc.v \
+		../../external/jtopl/hdl/jtopl_csr.v \
+		../../external/jtopl/hdl/jtopl_div.v \
+		../../external/jtopl/hdl/jtopl_eg.v \
+		../../external/jtopl/hdl/jtopl_eg_cnt.v \
+		../../external/jtopl/hdl/jtopl_eg_comb.v \
+		../../external/jtopl/hdl/jtopl_eg_ctrl.v \
+		../../external/jtopl/hdl/jtopl_eg_final.v \
+		../../external/jtopl/hdl/jtopl_eg_pure.v \
+		../../external/jtopl/hdl/jtopl_eg_step.v \
+		../../external/jtopl/hdl/jtopl_exprom.v \
+		../../external/jtopl/hdl/jtopl_lfo.v \
+		../../external/jtopl/hdl/jtopl_logsin.v \
+		../../external/jtopl/hdl/jtopl_noise.v \
+		../../external/jtopl/hdl/jtopl_op.v \
+		../../external/jtopl/hdl/jtopl_pg.v \
+		../../external/jtopl/hdl/jtopl_pg_comb.v \
+		../../external/jtopl/hdl/jtopl_pg_inc.v \
+		../../external/jtopl/hdl/jtopl_pg_rhy.v \
+		../../external/jtopl/hdl/jtopl_pg_sum.v \
+		../../external/jtopl/hdl/jtopl_pm.v \
+		../../external/jtopl/hdl/jtopl_reg_ch.v \
+		../../external/jtopl/hdl/jtopl_sh.v \
+		../../external/jtopl/hdl/jtopl_sh_rst.v \
+		../../external/jtopl/hdl/jtopl_single_acc.v \
+		../../external/jtopl/hdl/jtopl_slot_cnt.v \
+		../../external/jtopl/hdl/jtopl_timers.v \
+		../../external/jtopl/hdl/jtopl.v \
+		../../external/jtopl/hdl/jtopl2.v \
+		../../external/jtopl/hdl/jtopl_mmr.v \
+		../../external/jtopl/hdl/jtopl_reg.v \
+		../dac.v \
 		../sdram.sv \
 		../bram.sv \
 		../uart.sv \
@@ -44,11 +76,11 @@ SRC_CORE := ../../external/xglib/rtl/riscv/processor.sv \
 
 SRC_XOSERA := $(wildcard ../../external/Xosera/rtl/*.sv)
 
-SRC := $(SRC_CORE) $(SRC_XOSERA)
-#SRC := $(SRC_CORE)
+#SRC := $(SRC_CORE) $(SRC_XOSERA)
+SRC := $(SRC_CORE)
 
-DEFINES := -DUSB -DPS2 -DSDRAM -DSD_CARD -DFLASH -DXGA -DNO_TESTPATTERN -DEN_PF_B -DEN_PF_B_BLEND -DEN_AUDIO=4 -DMODE_848x480
-#DEFINES := -DUSB -DPS2 -DSDRAM -DSD_CARD -DVGA
+#DEFINES := -DUSB -DPS2 -DSDRAM -DSD_CARD -DFLASH -DXGA -DNO_TESTPATTERN -DEN_PF_B -DEN_PF_B_BLEND -DEN_AUDIO=4 -DMODE_848x480
+DEFINES := -DUSB -DSDRAM -DVGA -DOPL
 
 all: top.bin
 

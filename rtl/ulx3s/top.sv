@@ -2,6 +2,14 @@
 // Copyright (c) 2022-2023 Daniel Cliche
 // SPDX-License-Identifier: MIT
 
+`ifdef XGA
+`define AUDIO
+`endif
+
+`ifdef OPL
+`define AUDIO
+`endif
+
 module top(
     input  wire logic       clk_25mhz,
     input  wire logic [6:0] btn,
@@ -125,7 +133,7 @@ module top(
         .vga_g_o(vga_g),
         .vga_b_o(vga_b),
         .vga_de_o(vga_de),
-`ifdef XGA
+`ifdef AUDIO
         .audio_l_o(audio_l[3]),
         .audio_r_o(audio_r[3]),
 `endif
